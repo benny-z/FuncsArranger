@@ -1,0 +1,2 @@
+== NOTES ==
+* -fno-toplevel-reorder - disables the ordering of the functions by gcc (a gcc flag)

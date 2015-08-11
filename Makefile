@@ -6,13 +6,17 @@
 # 	gcc -c -o trace.o trace.c
 
 test: test.c
-	gcc -Wall -pg -fno-omit-frame-pointer test.c -o test
+	gcc -Wall -pg -fno-omit-frame-pointer test.c -c
+	gcc -Wall -pg -fno-omit-frame-pointer test.o -o test
 
 # test.o: test.c
 	# gcc -pg test.c -c
 
 # test: trace.o test.o
 # 	gcc test.o trace.o -o test
+
+call-graph: profile
+	python ./ParseCallGraph.py anl.txt
 
 profile: test
 	./test

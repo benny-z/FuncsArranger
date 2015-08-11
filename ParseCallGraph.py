@@ -1,3 +1,4 @@
+import sys
 from pprint import pprint
 import re
 from collections import namedtuple
@@ -22,7 +23,7 @@ class ParseCallGraph:
         self.strip_header()
         self.map_func_index_to_name()
         self.parse_call_table()
-        pprint(self.out_graph)
+        return self.out_graph
 
     def strip_header(self):
         self.graph_txt = re.split('index .* name', self.graph_txt)[-1]
@@ -67,9 +68,24 @@ class ParseCallGraph:
         return Call(func_name, num_of_calls)
         
 
-f = open('/media/bennyz/Data/Google Drive/assignments/2014/labC/ex3/anl.txt', 'r')
-graph_txt = f.read()
-f.close()
 
-pcg = ParseCallGraph(graph_txt)
-pcg.parse()
+def main():
+    cur_dir = dirname(__file__) or '.'
+    chdir(cur_dir)
+
+    gprof_file_system = sys.argv[1]
+
+    graph_txt = None
+    with open(gprof_file_system, 'r') as f:
+        graph_txt = f.read()
+    
+    if graph_txt is None:
+        raise("WTF?!")
+
+    pcg = ParseCallGraph(graph_txt)
+    parsed_call_graph = pcg.parse()
+    for a in parsed_call_graph.items():
+        pprint(a)
+
+if '__main__' == __name__:
+    main()

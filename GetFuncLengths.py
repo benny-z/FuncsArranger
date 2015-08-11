@@ -30,9 +30,10 @@ def get_obj_files_lst(base_dir):
 	return matches
 
 if '__main__' == __name__:
-	cur_dir = dirname(__file__)
-	cur_dir = cur_dir if cur_dir != '' else '.'
+	cur_dir = dirname(__file__) or '.'
 	chdir(cur_dir)
+
+    gprof_file_system = sys.argv[1]
 
 	obj_files_lst = get_obj_files_lst(cur_dir)
 	pprint(get_all_funcs(obj_files_lst))

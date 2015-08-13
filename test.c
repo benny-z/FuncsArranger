@@ -1,10 +1,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "test1.h"
 
 void baz()
 {
+	printf("baz\n");
+	printf("baz\n");
+	printf("baz\n");
+	printf("baz\n");
+	printf("baz\n");
 	printf("baz\n");
 }
 
@@ -54,9 +58,12 @@ int main()
 	//         } while (--n > 0);
 	// }
 
-	int a = 3;
-	int b = 7;
-	a^=b^=a^=b;
-	printf("%d", a);
+	// int a = 3;
+	// int b = 7;
+	// a^=b^=a^=b;
+	// printf("%d", a);
+	foo();
+	bar();
+	baz();
 	return 0;
 }

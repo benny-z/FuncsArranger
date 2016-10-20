@@ -1,5 +1,6 @@
 # FuncsArranger
 
+**Warning** This project was written as a POC and looks like it as well. It *should* and *will* be re-written.
 
 ## Executive summary
 This tool aims to increase the speed of program's execution by suggesting an optimal order of functions in the executable.

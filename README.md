@@ -1,7 +1,8 @@
 # FuncsArranger
 
+
 ## Executive summary
-This tool aims to increase the speed of programs execution by suggesting a new order of functions for the executable. This way, processing time is saved on branching and boosts the whole process.
+This tool aims to increase the speed of program's execution by suggesting an optimal order of functions in the executable.
 
 ## Technical details
 In order to conclude the best ordering of the functions in the binary, first the executable is ran, profiled, various data collected regarding each function, and then a genetic algorithm determines the best ordering based on the gathered information.
@@ -13,7 +14,8 @@ The profiling is done using the *gprof* Linux utility and than analyzed using py
 Our case is similar to the Minimum Linear Arrangement of a Directed Graph (MINLARD) problem. This problem is proven to be NP-hard in [S. Even and Y. Shiloah, *NP-completeness of several arrangement problems*, Technical Report no. 43 of the Department of Computer Science, Israel Institute of Technology (Technion), 1975](http://www.cs.technion.ac.il/users/wwwb/cgi-bin/tr-get.cgi/1975/CS/CS0043.pdf) (on page 11 at the bottom, Theorem 5). Thus, our approach is rather a heuristic than an algorithm. The solution of our choice involves a rather simple and straight forward [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). The algorithm follows the following rules,
 * The **population** consists of genes, where each one of them is a linear arrangement of the functions. 
 * The **fitness function** is calculated as follows, for each two functions in a gene, denoted by *A* and *B*, the fitness is given by the product of the distance between *A* and *B* in the binary, and the number of times *A* calls *B* and *B* calls *A*. The fitness between each two functions is then summed up.
-* A **mutation** is an exchange of two functions in random indices in the linear ordering. 
+* The **mutation** is an exchange of two functions in random indices in the linear ordering. 
+* The **corssover** procedure is based on Union Crossover Algorithm from [P.W. Poon and J.N. Carter *Genetic algorithm crossover operators for ordering applications*](http://www.sciencedirect.com/science/article/pii/0305054893E0024N) (page 7)
 
 ### Requirements
  * Python 3 (tested on 3.5)

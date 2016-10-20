@@ -41,10 +41,12 @@ class ParseCallGraph:
     def map_func_index_to_name(self):
         # stripping the graph txt from the "index by function name" section
         self.graph_txt, index_str = self.graph_txt.split('Index by function name')
-        index_str = filter(lambda x: not re.match(r'^\s*$', x), index_str)
-        for index, func_name in re.findall(self.func_starts_with_index_pattern, index_str):
-            self.index_to_func.update({int(self.strip_func_index(index)) : func_name})
-
+        index_str = index_str.replace('\n', '')
+        pattern = r"\[(?P<num>[0-9]+)\] (?P<name>[\w\d]+)"
+        self.index_to_func = dict([match.groups() for match in re.finditer(pattern, index_str, re.MULTILINE)])
+        # turning the indices into numbers
+        self.index_to_func = {int(key) : value for key, value in self.index_to_func.items()}
+    
     def parse_call_table(self):
         for entry in re.split('[---]+', self.graph_txt):
             self.parse_entry(entry)

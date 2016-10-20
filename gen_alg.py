@@ -14,10 +14,10 @@ class GenAlg:
 		self.generations = 20
 		self.mutation_prob = 2 # in percents
 
-	def __get_abs_location(self, gene, index):
+	def __get_abs_location__(self, gene, index):
 		return sum([func.length for func in gene[:index]])
 
-	def __generate_init_population(self, num_of_funcs):
+	def __generate_init_population__(self, num_of_funcs):
 		population = []
 		pop_size = min(math.factorial(num_of_funcs), self.pop_size)
 		for i in range(pop_size+1):
@@ -28,14 +28,13 @@ class GenAlg:
 		return population
 
 	def get_pop_ordered_by_fitness(self, population):
-		fitness = map(self.fitness, population)
-		sorted_fitness = fitness
-		sorted_fitness.sort()
-		return [population[fitness.index(i)] for i in sorted_fitness], sorted_fitness
+		fitness = list(map(self.fitness, population))
+		fitness.sort()
+		return [population[fitness.index(i)] for i in fitness], fitness
 
 	def run(self):
 		num_of_funcs = self.calls_matrix.shape[0]
-		population = self.__generate_init_population(num_of_funcs)
+		population = self.__generate_init_population__(num_of_funcs)
 		for i in range(self.generations):
 			sorted_population, sorted_fitness = self.get_pop_ordered_by_fitness(population)
 			
@@ -97,8 +96,8 @@ class GenAlg:
 				func1 = gene[i]
 				func2 = gene[j]
 				num_of_calls = self.calls_matrix[i][j]
-				func1_location = self.__get_abs_location(gene, i)
-				func2_location = self.__get_abs_location(gene, j)
+				func1_location = self.__get_abs_location__(gene, i)
+				func2_location = self.__get_abs_location__(gene, j)
 				dist_between_funcs = func1_location - func2_location
 				# the distance between a function and itself is zero so there is no need
 				# to check whether we're sorting the same function

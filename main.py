@@ -30,10 +30,11 @@ def run():
 		# section that maps indices to function names.
 		# There should be at most 1 such function
 		raise(utils.ERROR_MESSAGE)
-
+	
 	index_to_length_map = \
 		{func_to_index_map[func_name] : length \
 		for func_name, length in funcs_to_length_map.items() if func_name in func_to_index_map.keys()}
+
 	ga = gen_alg.GenAlg(parsed_call_graph, index_to_length_map)
 	best_gene = ga.run()
 	best_gene = [index_to_func_map[index] for index in best_gene]

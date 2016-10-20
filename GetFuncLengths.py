@@ -5,7 +5,7 @@ import subprocess
 import fnmatch
 import re
 
-FUNC_SIZE_NAME_PATTERN = re.compile('([\w\d]+)\s\w\s[\d|a-fA-F]+\s([\d|a-fA-F]+)')
+FUNC_SIZE_NAME_PATTERN = '([\w\d]+)\s\w\s[\d|a-fA-F]+\s([\d|a-fA-F]+)'
 SEPARATOR = "###"
 
 class FuncsLengthsParser:
@@ -20,19 +20,12 @@ class FuncsLengthsParser:
 		chdir(self.base_dir)
 		func_name_to_size = []
 		for o_f_name in obj_files_lst:
-			o_content = subprocess.check_output(['nm' ,'-S', '-f', 'posix', o_f_name])
+			o_content = str(subprocess.check_output(['nm' ,'-S', '-f', 'posix', o_f_name]))
+			o_content = o_content.replace('\\n', '\n')
 			obj_file_basename = basename(o_f_name)
-			func_name_to_size += self.parse_file(o_content, obj_file_basename)
-		return dict(func_name_to_size)
+			func_name_to_size += [match.groups() for match in re.finditer(FUNC_SIZE_NAME_PATTERN, o_content)]
+		return { k:int(v,16) for k,v in dict(func_name_to_size).items()} 
 			
-	def parse_file(self, f_content, obj_file_name):
-		func_to_size_map = []
-		for func_name, func_size in re.findall(FUNC_SIZE_NAME_PATTERN, f_content):
-			func_to_size_map.append(\
-				#('%s%s%s' % (obj_file_name, SEPARATOR, func_name), int(func_size,16)))
-				(func_name, int(func_size,16)))
-		return func_to_size_map
-
 	def get_obj_files_lst(self):
 		matches = []
 		for root, dirnames, filenames in walk(self.base_dir):

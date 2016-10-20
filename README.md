@@ -1,7 +1,7 @@
 # FuncsArranger
 
 ## Executive summary
-This tool aims to increase the speed of programs execution by suggesting a new order of functions in the executable.
+This tool aims to increase the speed of programs execution by suggesting a new order of functions for the executable. This way, processing time is saved on branching and boosts the whole process.
 
 ## Technical details
 In order to conclude the best ordering of the functions in the binary, first the executable is ran, profiled, various data collected regarding each function, and then a genetic algorithm determines the best ordering based on the gathered information.

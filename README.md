@@ -12,10 +12,10 @@ In order to conclude the best ordering of the functions in the binary, first the
 The profiling is done using the *gprof* Linux utility and than analyzed using python. 
 
 ### Ordering algorithm
-Our case is similar to the Minimum Linear Arrangement of a Directed Graph (MINLARD) problem. This problem is proven to be NP-hard in [S. Even and Y. Shiloah, *NP-completeness of several arrangement problems*, Technical Report no. 43 of the Department of Computer Science, Israel Institute of Technology (Technion), 1975](http://www.cs.technion.ac.il/users/wwwb/cgi-bin/tr-get.cgi/1975/CS/CS0043.pdf) (on page 11 at the bottom, Theorem 5). Thus, our approach is rather a heuristic than an algorithm. The solution of our choice involves a rather simple and straight forward [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). The algorithm follows the following rules,
+Our case is similar to the Minimum Linear Arrangement of a Directed Graph (MINLARD) problem. This problem is proven to be NP-hard in [S. Even and Y. Shiloah, *NP-completeness of several arrangement problems*, Technical Report no. 43 of the Department of Computer Science, Israel Institute of Technology (Technion), 1975](http://www.cs.technion.ac.il/users/wwwb/cgi-bin/tr-get.cgi/1975/CS/CS0043.pdf) (on page 11 at the bottom, Theorem 5). Thus, our approach is rather heuristic and involves a simple [genetic algorithm](https://en.wikipedia.org/wiki/Genetic_algorithm). The algorithm follows the following rules,
 * The **population** consists of genes, where each one of them is a linear arrangement of the functions. 
 * The **fitness function** is calculated as follows, for each two functions in a gene, denoted by *A* and *B*, the fitness is given by the product of the distance between *A* and *B* in the binary, and the number of times *A* calls *B* and *B* calls *A*. The fitness of a gene is then calculated by summing up the fitnesses of every two functions in the gene.
-* The **mutation** is an exchange of two functions in random indices in the linear ordering. 
+* The **mutation** is a simple swap between two functions in random indices in the linear ordering.
 * The **corssover** procedure is based on Union Crossover Algorithm from [P.W. Poon and J.N. Carter *Genetic algorithm crossover operators for ordering applications*](http://www.sciencedirect.com/science/article/pii/0305054893E0024N) (page 7)
 
 ### Requirements
